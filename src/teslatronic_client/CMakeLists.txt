@@ -21,7 +21,7 @@ set(_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
+find_package(teslatronic_interfaces REQUIRED)
 
 add_executable(
 	${PROJECT_NAME}
@@ -40,7 +40,7 @@ target_include_directories(
 ament_target_dependencies(
 	${PROJECT_NAME}
 		rclcpp
-		std_msgs
+		teslatronic_interfaces
 )
 
 install(

@@ -3,20 +3,20 @@
 
 #include <rclcpp/node.hpp>
 #include <rclcpp/subscription.hpp>
-#include <std_msgs/msg/int32.hpp>
+#include <teslatronic_interfaces/msg/engine_start_stop.hpp>
 
-class TeslatronicServerExternalBridge : public rclcpp::Node {
+class TeslatronicServerExternalBridge: public rclcpp::Node {
 public:
   TeslatronicServerExternalBridge();
 
   int32_t init();
 
 private:
-  using Int32 = std_msgs::msg::Int32;
+  using EngineStartStop = teslatronic_interfaces::msg::EngineStartStop;
 
-  void onEngineStartStopMsg(const std::shared_ptr<Int32> msg);
+  void onEngineStartStopMsg(const std::shared_ptr<EngineStartStop> msg);
 
-  std::shared_ptr<rclcpp::Subscription<Int32>> _engineStartStopSubscriber;
+  std::shared_ptr<rclcpp::Subscription<EngineStartStop>> _engineStartStopSubscriber;
 };
 
 #endif /* TESLATRONICSERVEREXTERNALBRIDGE_H_ */

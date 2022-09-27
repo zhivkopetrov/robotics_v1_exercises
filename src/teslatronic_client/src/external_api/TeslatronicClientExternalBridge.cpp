@@ -15,7 +15,7 @@ TeslatronicClientExternalBridge::TeslatronicClientExternalBridge()
 int32_t TeslatronicClientExternalBridge::init() {
   constexpr auto queueSize = 10;
   const rclcpp::QoS qos(queueSize);
-  _engineStartStopPublisher = create_publisher<Int32>(
+  _engineStartStopPublisher = create_publisher<EngineStartStop>(
       ENGINE_START_STOP_TOPIC_NAME, qos);
 
   return EXIT_SUCCESS;
@@ -25,12 +25,13 @@ void TeslatronicClientExternalBridge::run() {
   using namespace std::literals;
 
   constexpr int32_t retries = 10;
-  bool engineStarted = false;
-  Int32 msg;
+  EngineStartStop msg;
+  msg.state = EngineStartStop::ENGINE_STARTED;
 
   for (int32_t i = 0; i < retries; ++i) {
-    engineStarted = !engineStarted;
-    msg.data = static_cast<int32_t>(engineStarted);
+    msg.state =
+        (EngineStartStop::ENGINE_STARTED == msg.state) ?
+            EngineStartStop::ENGINE_STOPPED : EngineStartStop::ENGINE_STARTED;
     _engineStartStopPublisher->publish(msg);
     std::this_thread::sleep_for(1s);
   }

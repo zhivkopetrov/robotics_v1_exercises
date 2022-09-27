@@ -3,7 +3,7 @@
 
 #include <rclcpp/node.hpp>
 #include <rclcpp/publisher.hpp>
-#include <std_msgs/msg/int32.hpp>
+#include <teslatronic_interfaces/msg/engine_start_stop.hpp>
 
 class TeslatronicClientExternalBridge : public rclcpp::Node {
 public:
@@ -14,9 +14,9 @@ public:
   void run();
 
 private:
-  using Int32 = std_msgs::msg::Int32;
+  using EngineStartStop = teslatronic_interfaces::msg::EngineStartStop;
 
-  std::shared_ptr<rclcpp::Publisher<Int32>> _engineStartStopPublisher;
+  std::shared_ptr<rclcpp::Publisher<EngineStartStop>> _engineStartStopPublisher;
 };
 
 #endif /* TESLATRONICCLIENTEXTERNALBRIDGE_H_ */

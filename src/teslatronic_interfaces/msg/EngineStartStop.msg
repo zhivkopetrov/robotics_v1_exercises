@@ -1,0 +1,4 @@
+uint8 ENGINE_STARTED=1
+uint8 ENGINE_STOPPED=0
+
+uint8 state

@@ -16,7 +16,7 @@ int32_t TeslatronicServerExternalBridge::init() {
   constexpr auto queueSize = 10;
   const rclcpp::QoS qos(queueSize);
 
-  _engineStartStopSubscriber = create_subscription<Int32>(
+  _engineStartStopSubscriber = create_subscription<EngineStartStop>(
       ENGINE_START_STOP_TOPIC_NAME, qos,
       std::bind(&TeslatronicServerExternalBridge::onEngineStartStopMsg, this,
           std::placeholders::_1));
@@ -25,6 +25,7 @@ int32_t TeslatronicServerExternalBridge::init() {
 }
 
 void TeslatronicServerExternalBridge::onEngineStartStopMsg(
-    const std::shared_ptr<Int32> msg) {
-  std::cout << "Engine state received: " << msg->data << std::endl;
+    const std::shared_ptr<EngineStartStop> msg) {
+  std::cout << "Engine state received: " << static_cast<int32_t>(msg->state)
+            << std::endl;
 }
