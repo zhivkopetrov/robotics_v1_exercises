@@ -1,10 +1,21 @@
 #include "teslatronic_client/external_api/TeslatronicClientExternalBridge.h"
 
 #include <thread>
+#include <iostream>
 
 namespace {
 constexpr auto NODE_NAME = "TeslatronicClientExternalBridge";
 constexpr auto ENGINE_START_STOP_TOPIC_NAME = "engine_start_stop";
+constexpr auto QUERY_MAP_SERVICE_NAME = "query_map";
+
+template <typename T>
+void waitForService(const T &client) {
+  using namespace std::literals;
+  while (!client->wait_for_service(1s)) {
+    std::cout << "Service: [" << client->get_service_name()
+    << "] not available. Waiting for 1s ..." << std::endl;
+  }
+}
 }
 
 TeslatronicClientExternalBridge::TeslatronicClientExternalBridge()
@@ -17,6 +28,9 @@ int32_t TeslatronicClientExternalBridge::init() {
   const rclcpp::QoS qos(queueSize);
   _engineStartStopPublisher = create_publisher<EngineStartStop>(
       ENGINE_START_STOP_TOPIC_NAME, qos);
+
+  _mapQueryClient = create_client<QueryMap>(QUERY_MAP_SERVICE_NAME);
+  waitForService(_mapQueryClient);
 
   return EXIT_SUCCESS;
 }
@@ -34,5 +48,26 @@ void TeslatronicClientExternalBridge::run() {
             EngineStartStop::ENGINE_STOPPED : EngineStartStop::ENGINE_STARTED;
     _engineStartStopPublisher->publish(msg);
     std::this_thread::sleep_for(1s);
+
+    queryMap();
   }
+}
+
+void TeslatronicClientExternalBridge::queryMap() {
+  std::shared_ptr<QueryMap::Request> request = std::make_shared<
+      QueryMap::Request>();
+
+  auto result = _mapQueryClient->async_send_request(request);
+  const std::shared_ptr<QueryMap::Response> response = result.get();
+  const auto& map = response->map;
+  int32_t idx {};
+
+  for (int32_t row = 0; row < map.rows; ++row) {
+    for (int32_t col = 0; col < map.cols; ++col) {
+      std::cout << map.data[idx];
+      ++idx;
+    }
+    std::cout << '\n';
+  }
+  std::cout << std::endl;
 }
