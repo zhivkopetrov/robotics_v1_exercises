@@ -11,6 +11,13 @@ static ApplicationConfig generateAppConfig() {
   cfg.mapRows = 5;
   cfg.mapCols = 8;
 
+  BatteryInfo& batteryCfg = cfg.batteryCfg;
+  batteryCfg.model = "NCR18650B";
+  batteryCfg.currentHeat = 0;
+  batteryCfg.maxHeat = 100;
+  batteryCfg.currentPower = 50;
+  batteryCfg.maxPower = 150;
+
   return cfg;
 }
 

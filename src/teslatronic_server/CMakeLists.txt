@@ -26,8 +26,10 @@ find_package(teslatronic_interfaces REQUIRED)
 add_executable(
 	${PROJECT_NAME}
 		${_INC_DIR}/external_api/TeslatronicServerExternalBridge.h
+		${_INC_DIR}/external_api/BatteryExternalBridge.h
 		${_INC_DIR}/core/CarControlUnit.h
 		${_INC_DIR}/core/Map.h
+		${_INC_DIR}/core/Battery.h
 		${_INC_DIR}/teslatronic_common/CommonDefines.h
 		${_INC_DIR}/teslatronic_common/FunctionalDefines.h
 		${_INC_DIR}/teslatronic_common/MessageHelpers.h
@@ -36,8 +38,10 @@ add_executable(
 		${_INC_DIR}/Application.h
 	
 		${_SRC_DIR}/external_api/TeslatronicServerExternalBridge.cpp
+		${_SRC_DIR}/external_api/BatteryExternalBridge.cpp
 		${_SRC_DIR}/core/CarControlUnit.cpp
 		${_SRC_DIR}/core/Map.cpp
+		${_SRC_DIR}/core/Battery.cpp
 		${_SRC_DIR}/teslatronic_common/MessageHelpers.cpp
 		${_SRC_DIR}/teslatronic_common/Ros2Communicator.cpp
 		${_SRC_DIR}/Application.cpp

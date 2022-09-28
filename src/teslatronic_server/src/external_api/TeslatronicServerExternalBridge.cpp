@@ -50,7 +50,7 @@ void TeslatronicServerExternalBridge::onEngineStartStopMsg(
 void TeslatronicServerExternalBridge::handleMapQueryService(
     [[maybe_unused]]const std::shared_ptr<QueryMap::Request> request,
     std::shared_ptr<QueryMap::Response> response) {
-  const auto& mapDescr = _outInterface.getMapDescrCb();
+  const auto &mapDescr = _outInterface.getMapDescrCb();
   response->map.rows = mapDescr.rows;
   response->map.cols = mapDescr.cols;
   response->map.data = mapDescr.data;

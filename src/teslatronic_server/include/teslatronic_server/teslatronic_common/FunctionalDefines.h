@@ -8,5 +8,6 @@
 
 using SetEngineStateCb = std::function<void(EngineState)>;
 using GetMapDescrCb = std::function<const MapDescription&()>;
+using GetBatteryInfoCb = std::function<const BatteryInfo&()>;
 
 #endif /* FUNCTIONALDEFINES_H_ */
