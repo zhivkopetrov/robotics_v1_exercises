@@ -8,6 +8,7 @@ int32_t Application::init(const ApplicationConfig &cfg) {
   TeslatronicServerExternalBridgeOutInterface outInterface;
   outInterface.setEngineStateCb = std::bind(&CarControlUnit::setEngineState,
       &_carControlUnit, _1);
+  outInterface.getMapDescrCb = std::bind(&Map::getMapDescr, &_map);
 
   _externalBridge = std::make_shared<TeslatronicServerExternalBridge>();
   int32_t errCode = _externalBridge->init(outInterface);

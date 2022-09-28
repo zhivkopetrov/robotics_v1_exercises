@@ -28,6 +28,7 @@ int32_t main(int32_t argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  app.run();
   rclcpp::shutdown();
 
   return EXIT_SUCCESS;
