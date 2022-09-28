@@ -21,6 +21,7 @@ find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/EngineStartStop.msg"
+  "msg/Map.msg"
   DEPENDENCIES # Add packages that above messages depend on
 )
 

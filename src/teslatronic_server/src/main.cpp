@@ -4,24 +4,14 @@
 #include <rclcpp/rclcpp.hpp>
 #include <thread>
 
-#include "teslatronic_server/external_api/TeslatronicServerExternalBridge.h"
-#include "teslatronic_server/core/CarControlUnit.h"
+#include "teslatronic_server/Application.h"
 
-static int32_t initApp(CarControlUnit &carControlUnit,
-                       std::shared_ptr<TeslatronicServerExternalBridge> &node) {
-  using namespace std::placeholders;
+static ApplicationConfig generateAppConfig() {
+  ApplicationConfig cfg;
+  cfg.mapRows = 5;
+  cfg.mapCols = 8;
 
-  TeslatronicServerExternalBridgeOutInterface outInterface;
-  outInterface.setEngineStateCb = std::bind(&CarControlUnit::setEngineState,
-      &carControlUnit, _1);
-
-  const int32_t errCode = node->init(outInterface);
-  if (EXIT_SUCCESS != errCode) {
-    std::cerr << "TeslatronicServerExternalBridge::init() failed" << std::endl;
-    return EXIT_FAILURE;
-  }
-
-  return EXIT_SUCCESS;
+  return cfg;
 }
 
 int32_t main(int32_t argc, char *argv[]) {
@@ -29,16 +19,14 @@ int32_t main(int32_t argc, char *argv[]) {
   initOptions.shutdown_on_sigint = false;
   rclcpp::init(argc, argv);
 
-  CarControlUnit carControlUnit;
-  auto node = std::make_shared<TeslatronicServerExternalBridge>();
-  const int32_t errCode = initApp(carControlUnit, node);
+  const auto appCfg = generateAppConfig();
+
+  Application app;
+  const int32_t errCode = app.init(appCfg);
   if (EXIT_SUCCESS != errCode) {
     std::cerr << "initApp() failed" << std::endl;
     return EXIT_FAILURE;
   }
-
-  //blocking call
-  rclcpp::spin(node);
 
   rclcpp::shutdown();
 

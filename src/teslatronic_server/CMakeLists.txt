@@ -27,14 +27,18 @@ add_executable(
 	${PROJECT_NAME}
 		${_INC_DIR}/external_api/TeslatronicServerExternalBridge.h
 		${_INC_DIR}/core/CarControlUnit.h
+		${_INC_DIR}/core/Map.h
 		${_INC_DIR}/teslatronic_common/CommonDefines.h
 		${_INC_DIR}/teslatronic_common/FunctionalDefines.h
 		${_INC_DIR}/teslatronic_common/MessageHelpers.h
 		${_INC_DIR}/teslatronic_common/TeslatronicTopics.h
+		${_INC_DIR}/Application.h
 	
 		${_SRC_DIR}/external_api/TeslatronicServerExternalBridge.cpp
 		${_SRC_DIR}/core/CarControlUnit.cpp
+		${_SRC_DIR}/core/Map.cpp
 		${_SRC_DIR}/teslatronic_common/MessageHelpers.cpp
+		${_SRC_DIR}/Application.cpp
 		${_SRC_DIR}/main.cpp
 )
 
