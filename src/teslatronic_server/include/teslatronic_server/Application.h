@@ -2,6 +2,7 @@
 #define APPLICATION_H_
 
 #include "teslatronic_server/external_api/TeslatronicServerExternalBridge.h"
+#include "teslatronic_server/teslatronic_common/Ros2Communicator.h"
 #include "teslatronic_server/core/CarControlUnit.h"
 #include "teslatronic_server/core/Map.h"
 
@@ -12,6 +13,8 @@ struct ApplicationConfig {
 
 class Application {
 public:
+  ~Application() noexcept;
+
   int32_t init(const ApplicationConfig& cfg);
 
   void run();
@@ -20,6 +23,7 @@ private:
   CarControlUnit _carControlUnit;
   Map _map;
   std::shared_ptr<TeslatronicServerExternalBridge> _externalBridge;
+  Ros2Communicator _communicator;
 };
 
 #endif /* APPLICATION_H_ */

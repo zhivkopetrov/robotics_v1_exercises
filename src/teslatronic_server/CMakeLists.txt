@@ -32,12 +32,14 @@ add_executable(
 		${_INC_DIR}/teslatronic_common/FunctionalDefines.h
 		${_INC_DIR}/teslatronic_common/MessageHelpers.h
 		${_INC_DIR}/teslatronic_common/TeslatronicTopics.h
+		${_INC_DIR}/teslatronic_common/Ros2Communicator.h
 		${_INC_DIR}/Application.h
 	
 		${_SRC_DIR}/external_api/TeslatronicServerExternalBridge.cpp
 		${_SRC_DIR}/core/CarControlUnit.cpp
 		${_SRC_DIR}/core/Map.cpp
 		${_SRC_DIR}/teslatronic_common/MessageHelpers.cpp
+		${_SRC_DIR}/teslatronic_common/Ros2Communicator.cpp
 		${_SRC_DIR}/Application.cpp
 		${_SRC_DIR}/main.cpp
 )

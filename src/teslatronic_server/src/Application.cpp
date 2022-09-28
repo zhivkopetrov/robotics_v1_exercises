@@ -1,9 +1,17 @@
 #include "teslatronic_server/Application.h"
 
-#include <rclcpp/executors.hpp>
+Application::~Application() noexcept {
+  _communicator.unregisterNode(_externalBridge);
+}
 
 int32_t Application::init(const ApplicationConfig &cfg) {
   using namespace std::placeholders;
+
+  int32_t errCode = _communicator.init();
+  if (EXIT_SUCCESS != errCode) {
+    std::cerr << "Ros2Commicator::init() failed" << std::endl;
+    return EXIT_FAILURE;
+  }
 
   TeslatronicServerExternalBridgeOutInterface outInterface;
   outInterface.setEngineStateCb = std::bind(&CarControlUnit::setEngineState,
@@ -11,11 +19,12 @@ int32_t Application::init(const ApplicationConfig &cfg) {
   outInterface.getMapDescrCb = std::bind(&Map::getMapDescr, &_map);
 
   _externalBridge = std::make_shared<TeslatronicServerExternalBridge>();
-  int32_t errCode = _externalBridge->init(outInterface);
+  errCode = _externalBridge->init(outInterface);
   if (EXIT_SUCCESS != errCode) {
     std::cerr << "TeslatronicServerExternalBridge::init() failed" << std::endl;
     return EXIT_FAILURE;
   }
+  _communicator.registerNode(_externalBridge);
 
   errCode = _map.init(cfg.mapRows, cfg.mapCols);
   if (EXIT_SUCCESS != errCode) {
@@ -27,5 +36,5 @@ int32_t Application::init(const ApplicationConfig &cfg) {
 }
 
 void Application::run() {
-  rclcpp::spin(_externalBridge);
+  _communicator.run();
 }
