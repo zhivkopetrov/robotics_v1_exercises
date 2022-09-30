@@ -25,6 +25,7 @@ int32_t main(int32_t argc, char *argv[]) {
 
   std::thread spinThread([&node]() {
     rclcpp::spin(node);
+    node->shutdown();
   });
 
   runApp(node);
