@@ -66,6 +66,11 @@ int32_t Application::initBatteryExternalBridge() {
   BatteryExternalBridgeOutInterface outInterface;
   outInterface.getBatteryInfoCb = std::bind(&Battery::getBatteryInfo,
       &_battery);
+  outInterface.setChargeStateCb = std::bind(&Battery::setChargeState, &_battery,
+      _1);
+  outInterface.chargeBatterySingleTurnCb = std::bind(&Battery::chargeSingleTurn,
+      &_battery);
+  outInterface.depleteHeatCb = std::bind(&Battery::depleteHeat, &_battery);
 
   _batteryExternalBridge = std::make_shared<BatteryExternalBridge>();
   const int32_t errCode = _batteryExternalBridge->init(outInterface);

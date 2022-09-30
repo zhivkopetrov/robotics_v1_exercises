@@ -9,5 +9,8 @@
 using SetEngineStateCb = std::function<void(EngineState)>;
 using GetMapDescrCb = std::function<const MapDescription&()>;
 using GetBatteryInfoCb = std::function<const BatteryInfo&()>;
+using SetChargeStateCb = std::function<void(BatteryChargeState)>;
+using ChargeBatterySingleTurnCb = std::function<bool()>;
+using DepleteHeatCb = std::function<void()>;
 
 #endif /* FUNCTIONALDEFINES_H_ */

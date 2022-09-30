@@ -11,7 +11,7 @@
 struct ApplicationConfig {
   int32_t mapRows{};
   int32_t mapCols{};
-  BatteryInfo batteryCfg;
+  BatteryConfig batteryCfg;
 };
 
 class Application {

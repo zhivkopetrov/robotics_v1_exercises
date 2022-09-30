@@ -3,6 +3,8 @@
 #include "teslatronic_server/teslatronic_common/TeslatronicTopics.h"
 #include "teslatronic_server/teslatronic_common/MessageHelpers.h"
 
+#include <thread>
+
 namespace {
 constexpr auto NODE_NAME = "TeslatronicServerExternalBridge";
 }

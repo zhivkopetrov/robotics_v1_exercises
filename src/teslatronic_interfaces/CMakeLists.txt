@@ -25,6 +25,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BatteryInfo.msg"
   "srv/QueryMap.srv"
   "srv/QueryBatteryInfo.srv"
+  "action/ChargeBattery.action"
   DEPENDENCIES # Add packages that above messages depend on
 )
 

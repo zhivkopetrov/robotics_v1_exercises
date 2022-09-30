@@ -9,6 +9,10 @@ enum class EngineState {
   STOPPED, STARTED
 };
 
+enum class BatteryChargeState {
+  IDLE, ACTIVE
+};
+
 using MapDataType = int8_t;
 
 struct MapDescription {

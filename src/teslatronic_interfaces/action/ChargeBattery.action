@@ -1,0 +1,11 @@
+# Request
+int32 charge_turns
+---
+# Result
+bool success
+string error_reason
+BatteryInfo battery_info
+---
+# Feedback
+int32 charge_turns_left
+BatteryInfo battery_info

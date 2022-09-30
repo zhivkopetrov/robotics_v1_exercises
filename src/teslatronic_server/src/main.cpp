@@ -11,12 +11,16 @@ static ApplicationConfig generateAppConfig() {
   cfg.mapRows = 5;
   cfg.mapCols = 8;
 
-  BatteryInfo& batteryCfg = cfg.batteryCfg;
+  BatteryInfo& batteryCfg = cfg.batteryCfg.data;
   batteryCfg.model = "NCR18650B";
-  batteryCfg.currentHeat = 0;
+  batteryCfg.currentHeat = 50;
   batteryCfg.maxHeat = 100;
   batteryCfg.currentPower = 50;
   batteryCfg.maxPower = 150;
+
+  cfg.batteryCfg.powerGainPerTurn = 10;
+  cfg.batteryCfg.heatGainPerTurn = 5;
+  cfg.batteryCfg.heatDepletionRate = 2;
 
   return cfg;
 }

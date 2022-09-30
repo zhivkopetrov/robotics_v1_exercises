@@ -31,6 +31,7 @@ private:
 
   std::shared_ptr<rclcpp::Subscription<EngineStartStop>> _engineStartStopSubscriber;
   std::shared_ptr<rclcpp::Service<QueryMap>> _mapQueryService;
+
   TeslatronicServerExternalBridgeOutInterface _outInterface;
 };
 
